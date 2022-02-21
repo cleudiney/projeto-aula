@@ -13,39 +13,20 @@
 
   */
 
-int sensores_impacto(int op)
+int sensores_impacto(sensorl)
 {
-//Pino ligado ao push-button
-int buttonPin = A0;
-//Definindo a saida do pino para maior clareza ( LED Verde)
-int led2 = A2;
-//Variavel para fazer a checagem
-int buttonState;
-
-void setup()
-{
-  
-  // Define o pino do botao como entrada
-  pinMode(buttonPin, INPUT);
-  // Define o pino do Led Verde como Saida
-  pinMode(led2, OUTPUT);
-}
-
-void loop() 
-{
+int estadosensor;
   // Verifica se o estado do botao foi alterado
-  buttonState = digitalRead(buttonPin);
+  estadosensor = digitalRead(sensorl);
   //Se o botao foi apertado
-  if (buttonState == LOW) 
+  if (estadosensor == LOW) 
   {
    // Liga o LED    
-    digitalWrite(led2, HIGH);  
+    return 0;  
   } 
   else 
   {
     // Apaga o LED
-    digitalWrite(led2, LOW); 
+    return 1; 
   }
-}
-
 }

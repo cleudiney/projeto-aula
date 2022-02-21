@@ -15,8 +15,10 @@ int ler_distancia(void);
 void mover_frente(void);
 void mover_tras(void);
 void parar(void);
-int sensores_impacto(int op);
+int sensores_impacto(char sensorl);
 void verifica_caminho();
+void viradireita();
+void viraesquerda();
 
 //declaração dos sensores de colisão
 
@@ -72,6 +74,8 @@ void setup()
   pinMode(SIT, INPUT); // entrada
   pinMode(SIDT, INPUT); // entrada
   pinMode(SIET, INPUT); // entrada
+  pinMode(ligarobo, INPUT); // entrada
+
 
   pinMode(PINO_SENSOR_TRIGGER, OUTPUT); // saida
   digitalWrite(PINO_SENSOR_TRIGGER, LOW); // por padrao em nivel baixo (sem sinal)
@@ -88,6 +92,10 @@ void setup()
 
 void loop() 
 {
+  //if estadorobo!=0
+
+
+  
   // le a distancia
   int distancia = ler_distancia();
 
@@ -105,12 +113,12 @@ void loop()
                    0100
 
   */
-  SIF = sensores_impacto(1);
-  SIEF = sensores_impacto(2);
-  SIET = sensores_impacto(3);
-  SIDT = sensores_impacto(9);  
-  SIDF = sensores_impacto(8);  
-  SIT = sensores_impacto(4);
+  SIF = sensores_impacto(A0);
+  SIEF = sensores_impacto(A2);
+  SIET = sensores_impacto(A5);
+  SIDT = sensores_impacto(A4);  
+  SIDF = sensores_impacto(A1);  
+  SIT = sensores_impacto(A6);
 
   
   // verifica se ha um obstaculo na frente
