@@ -15,22 +15,23 @@ int ler_distancia(void);
 void mover_frente(void);
 void mover_tras(void);
 void parar(void);
+int sensores_impacto(int op);
+void verifica_caminho();
 
+//declaração dos sensores de colisão
 
-//declaração dos sensores 
-
-int toquedireita = 2;
-int toqueesquerda = 3;
-int toquefrente = 4;
-int toquetras = 5;
+int SIF   = A0;
+int SIDF  = A1;
+int SIEF  = A2;
+int SIT   = A3;
+int SIDT  = A4;
+int SIET  = A5;
 
 //declaração dos botões
 
 
-int ligarobo = 6;
-int led2 = 5;
-int bot1 = 2;
-int bot2 = 3;
+int ligarobo = 0;
+bool estadorobo = 0;
 
 //declaração dos motores
 
@@ -54,15 +55,24 @@ const int PINO_SENSOR_TRIGGER = 12;
 
 /* Definições de operação do sensor ultrasônico */
 // declaracao das constantes auxiliares para controlar os motores
-const int DISTANCIA_SEGURA = 25; // [cm]
+const int DISTANCIA_SEGURA = 15; // [cm]
 const int PAUSA = 100; // [ms]
 
 
 
 void setup() 
 {
+
+
  // configura os pinos do sensor ultrassonico
   pinMode(PINO_SENSOR_ECHO, INPUT); // entrada
+  pinMode(SIF, INPUT); // entrada
+  pinMode(SIDF, INPUT); // entrada
+  pinMode(SIEF, INPUT); // entrada
+  pinMode(SIT, INPUT); // entrada
+  pinMode(SIDT, INPUT); // entrada
+  pinMode(SIET, INPUT); // entrada
+
   pinMode(PINO_SENSOR_TRIGGER, OUTPUT); // saida
   digitalWrite(PINO_SENSOR_TRIGGER, LOW); // por padrao em nivel baixo (sem sinal)
 
@@ -72,45 +82,39 @@ void setup()
   pinMode(PIN_MOTOR_IN3, OUTPUT); // saida
   pinMode(PIN_MOTOR_IN4, OUTPUT); // saida
   parar(); // robo parado por padrao
+
+
 }
 
-void loop() {
+void loop() 
+{
   // le a distancia
   int distancia = ler_distancia();
 
+  /*    sensores de impacto
+
+          
+                 sif 0001
+                 ******
+
+ 0010 sief  **            **  sidf            1000
+
+ 0011 siet  **            ** sidt             1001
+                  *******
+                   sit
+                   0100
+
+  */
+  SIF = sensores_impacto(1);
+  SIEF = sensores_impacto(2);
+  SIET = sensores_impacto(3);
+  SIDT = sensores_impacto(9);  
+  SIDF = sensores_impacto(8);  
+  SIT = sensores_impacto(4);
+
+  
   // verifica se ha um obstaculo na frente
-  if(distancia < DISTANCIA_SEGURA){
-    // para o robo
-    parar();
-    delay(500); // pausa para o proximo movimento
+  verifica_caminho();
 
-    // move o robo para tras
-    mover_tras();
 
-    // para o robo apos um curto intervalo
-    delay(1000);
-    parar();
-
-    // escolhe um dos lados para girar
-    bool par = (millis() % 2 == 0) ? true : false;
-    if(par){
-      // gira o motor 1 para a frente
-      digitalWrite(PIN_MOTOR_IN1, HIGH);
-      digitalWrite(PIN_MOTOR_IN2, LOW);
-    } else {
-      // gira o motor 2 para a frente
-      digitalWrite(PIN_MOTOR_IN3, HIGH);
-      digitalWrite(PIN_MOTOR_IN4, LOW);
-    }
-
-    // para o robo apos um curto intervalo
-    delay(500);
-    parar();
-  } else { // senao
-    // move o robo para a frente
-    mover_frente();
-  }
-
-  // pausa para a proxima leitura
-  delay(PAUSA);
 }
