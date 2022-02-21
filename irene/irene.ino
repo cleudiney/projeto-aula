@@ -1,5 +1,7 @@
 //declaração das bibliotecas
-#include <Ultrasonic.h>
+//#include <Ultrasonic.h>
+#include <Servo.h>
+
 
 
 
@@ -19,6 +21,7 @@ int sensores_impacto(char sensorl);
 void verifica_caminho();
 void viradireita();
 void viraesquerda();
+void manobra();
 
 //declaração dos sensores de colisão
 
@@ -28,6 +31,7 @@ int SIEF  = A2;
 int SIT   = A3;
 int SIDT  = A4;
 int SIET  = A5;
+int POSX = 100;
 
 //declaração dos botões
 
@@ -49,23 +53,28 @@ const int PIN_MOTOR_IN1 = 2;
 const int PIN_MOTOR_IN2 = 3;
 const int PIN_MOTOR_IN3 = 4;
 const int PIN_MOTOR_IN4 = 5;
-
+int pos; // Posição Servo
 
 /* Definições dos portas para leitura do sensor ultrasonico */
 const int PINO_SENSOR_ECHO = 13;
 const int PINO_SENSOR_TRIGGER = 12;
+#define SERVO 6 // Porta Digital 6 PWM
+
 
 /* Definições de operação do sensor ultrasônico */
 // declaracao das constantes auxiliares para controlar os motores
 const int DISTANCIA_SEGURA = 15; // [cm]
 const int PAUSA = 100; // [ms]
+Servo s; // Variável Servo
 
 
 
 void setup() 
 {
 
-
+  s.attach(SERVO);
+  Serial.begin(9600);
+  s.write(100); // Inicia motor posição zero
  // configura os pinos do sensor ultrassonico
   pinMode(PINO_SENSOR_ECHO, INPUT); // entrada
   pinMode(SIF, INPUT); // entrada
@@ -95,7 +104,7 @@ void loop()
   //if estadorobo!=0
 
 
-  
+
   // le a distancia
   int distancia = ler_distancia();
 
