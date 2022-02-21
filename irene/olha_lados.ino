@@ -3,5 +3,5 @@ void olha_lados()
 	
 
 
-	
+		
 }
