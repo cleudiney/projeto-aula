@@ -54,6 +54,7 @@ const int PIN_MOTOR_IN2 = 3;
 const int PIN_MOTOR_IN3 = 4;
 const int PIN_MOTOR_IN4 = 5;
 int pos; // Posição Servo
+int distancia = 0;
 
 /* Definições dos portas para leitura do sensor ultrasonico */
 const int PINO_SENSOR_ECHO = 13;
@@ -106,7 +107,7 @@ void loop()
 
 
   // le a distancia
-  int distancia = ler_distancia();
+  distancia = ler_distancia();
 
   /*    sensores de impacto
 

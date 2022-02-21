@@ -12,7 +12,7 @@ void olha_lados()
 	{
 		viradireita();
 	}
-	elseif(servo75<servo115)
+	else if(servo75 < servo115)
 	{
 		viraesquerda();
 	}

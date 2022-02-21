@@ -13,7 +13,7 @@
 
   */
 
-int sensores_impacto(sensorl)
+int sensores_impacto(char sensorl)
 {
 int estadosensor;
   // Verifica se o estado do botao foi alterado

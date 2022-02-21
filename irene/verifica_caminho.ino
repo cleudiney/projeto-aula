@@ -6,7 +6,7 @@ void verifica_caminho()
     // para o robo
     parar();
     delay(500); // pausa para o proximo movimento
-    olhalados();
+    olha_lados();
     // move o robo para tras
     mover_tras();
     //vira_direita();
