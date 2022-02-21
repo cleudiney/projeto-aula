@@ -1,2 +1,4 @@
 # projeto-aula
-primeiro projeto da aula de programação
+Primeiro projeto da aula de programação
+Repósitório criado para o desafio de projeto
+
