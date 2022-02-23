@@ -1,6 +1,6 @@
 void olha_lados()
 {
-	//qual distancia é maior? 75° ou 115°
+	//qual distancia é maior? 85° ou 125°
 	parar();
 	//mover servo esquerda
 	viraesquerda();
@@ -20,5 +20,5 @@ void olha_lados()
 	{
 		viraesquerda();
 	}
-
+  mover_frente();
 }
